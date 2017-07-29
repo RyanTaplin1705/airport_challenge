@@ -14,6 +14,11 @@ public class DockTest {
         assertThat(dock.hasPlane(plane)).isTrue();
     }
 
+    @Test
+    public void verifyPlaneIsNotDocked() throws Exception {
+        assertThat(dock.hasPlane(plane)).isFalse();
+    }
+
     private void givenPlaneIsDocked() {
         dock.plane = plane;
     }

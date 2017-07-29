@@ -1,7 +1,25 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Airport {
 
 
-    public Dock[] docks;
+    public static final int DEFAULT_CAPACITY = 10;
+    public List<Dock> docks;
+
+    public Airport(int capacity) {
+        docks = new ArrayList<>();
+        for (int i = 0; i < capacity; i++) {
+            docks.add(new Dock());
+        }
+    }
+
+    public Airport() {
+        docks = new ArrayList<>();
+        for (int i = 0; i < DEFAULT_CAPACITY; i++) {
+            docks.add(new Dock());
+        }
+    }
 
     public boolean isDocked(Plane plane) {
         for (Dock dock : docks) {
@@ -15,5 +33,9 @@ public class Airport {
             if (dock.isVacant()) return true;
         }
         return false;
+    }
+
+    public int maximumCapacity() {
+        return docks.size();
     }
 }

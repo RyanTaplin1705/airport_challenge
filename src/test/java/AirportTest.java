@@ -1,11 +1,16 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 public class AirportTest {
+
+    public static final int CUSTOM_CAPACITY = 999;
+    public static final int DEFAULT_CAPACITY = 10;
     private Airport airport = new Airport();
 
     private Plane plane = mock(Plane.class);
@@ -54,25 +59,36 @@ public class AirportTest {
         assertThat(hasSpaces).isTrue();
     }
 
+    @Test
+    public void airportDefaultCapacityIsTen() throws Exception {
+        assertThat(airport.maximumCapacity()).isEqualTo(DEFAULT_CAPACITY);
+    }
+
+    @Test
+    public void airportCanHaveCustomCapacity() throws Exception {
+        Airport customAirport = new Airport(CUSTOM_CAPACITY);
+        assertThat(customAirport.maximumCapacity()).isEqualTo(CUSTOM_CAPACITY);
+    }
+
     private void givenAirportHasMultipleDocksAndOneIsVacant() {
-        airport.docks = new Dock[]{occupiedDock, occupiedDock, occupiedDock, vacantDock, occupiedDock};
+        airport.docks = Arrays.asList(occupiedDock, occupiedDock, occupiedDock, vacantDock, occupiedDock);
     }
 
     private void givenAirportDockIsOccupied() {
-        airport.docks = new Dock[]{occupiedDock};
+        airport.docks = Arrays.asList(occupiedDock);
     }
 
     private void givenAirportDockIsVacant() {
-        airport.docks = new Dock[]{vacantDock};
+        airport.docks = Arrays.asList(vacantDock);
     }
 
     private void givenPlaneIsNotDockedAtAirport() {
         given(occupiedDock.hasPlane(plane)).willReturn(false);
-        airport.docks = new Dock[]{occupiedDock};
+        airport.docks = Arrays.asList(occupiedDock);
     }
 
     private void givenPlaneIsDockedAtAirport() {
         given(occupiedDock.hasPlane(plane)).willReturn(true);
-        airport.docks = new Dock[]{occupiedDock};
+        airport.docks = Arrays.asList(occupiedDock);
     }
 }

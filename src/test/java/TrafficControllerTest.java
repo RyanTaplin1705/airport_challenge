@@ -1,14 +1,21 @@
+import org.junit.Before;
 import org.junit.Test;
+
+import static org.mockito.Mockito.mock;
 
 public class TrafficControllerTest {
 
     private TrafficController trafficController = new TrafficController();
+    private Plane plane;
+
+    @Before
+    public void setUp() throws Exception {
+        givenWeHaveAnAirport();
+        givenWeHaveAPlane();
+    }
 
     @Test
     public void instructPlaneToLandAtAirport() throws Exception {
-        givenWeHaveAnAirport();
-        givenWeHaveAPlane();
-
         whenTrafficControllerInstructsPlaneToLand();
 
         thePlaneConfirmsLanding();
@@ -28,7 +35,7 @@ public class TrafficControllerTest {
     }
 
     private void givenWeHaveAPlane() {
-
+        plane = mock(Plane.class);
     }
 
     private void givenWeHaveAnAirport() {

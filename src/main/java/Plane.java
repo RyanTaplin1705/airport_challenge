@@ -1,5 +1,7 @@
 public class Plane {
-    public void land(Airport airport) {
+    public boolean isFlying = false;
 
+    public void land(Airport airport) {
+        isFlying = false;
     }
 }

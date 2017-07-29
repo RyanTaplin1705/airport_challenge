@@ -6,6 +6,8 @@ import static org.mockito.Mockito.*;
 
 public class TrafficControllerTest {
 
+    public static final String OTHER_WEATHER = "Sunny";
+    public static final String STORMY_WEATHER = "Stormy";
     private TrafficController trafficController = new TrafficController();
     private Plane plane = mock(Plane.class);
     private Airport airport = mock(Airport.class);
@@ -13,8 +15,13 @@ public class TrafficControllerTest {
     @Test
     public void instructPlaneToLandAtAirport() throws Exception {
         givenAirportIsNotFull();
+        givenAirportWeatherIsNotStormy();
         whenTrafficControllerInstructsPlaneToLand();
         thePlaneReceivesTheInstructionToLand();
+    }
+
+    private void givenAirportWeatherIsNotStormy() {
+        given(airport.getWeather()).willReturn(OTHER_WEATHER);
     }
 
     @Test
@@ -23,6 +30,7 @@ public class TrafficControllerTest {
         thePlaneReceivesTheInstructionToDepart();
     }
 
+    //TODO to think about how to access airport / weather (pass it in or assign it to plane as currentLocation);
     @Ignore
     @Test
     public void cantInstructPlaneToDepartFromAirportIfWeatherIsStormy() throws Exception {
@@ -42,6 +50,7 @@ public class TrafficControllerTest {
     @Test
     public void cantInstructPlaneToLandAtAirportThatIsFull() throws Exception {
         givenAirportIsFull();
+        givenAirportWeatherIsNotStormy();
         whenTrafficControllerInstructsPlaneToLand();
         thePlaneDoesNotReceiveInstructionToLand();
     }
@@ -49,6 +58,7 @@ public class TrafficControllerTest {
     @Test
     public void canInstructPlaneToLandWhenAirportIsNotFull() throws Exception {
         givenAirportIsNotFull();
+        givenAirportWeatherIsNotStormy();
         whenTrafficControllerInstructsPlaneToLand();
         thePlaneReceivesTheInstructionToLand();
     }
@@ -62,7 +72,7 @@ public class TrafficControllerTest {
     }
 
     private void givenAirportWeatherIsStormy() {
-        given(airport.getWeather()).willReturn("Stormy");
+        given(airport.getWeather()).willReturn(STORMY_WEATHER);
     }
 
     private void whenTrafficControllerInstructsPlaneToDepart() {

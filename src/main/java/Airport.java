@@ -1,10 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Airport {
 
+    private static final int DEFAULT_CAPACITY = 10;
 
-    public static final int DEFAULT_CAPACITY = 10;
+    private Weather weather = new Weather(new Random());
     public List<Dock> docks;
 
     public Airport(int capacity) {
@@ -40,6 +42,6 @@ public class Airport {
     }
 
     public String getWeather() {
-        return null;
+        return weather.type;
     }
 }

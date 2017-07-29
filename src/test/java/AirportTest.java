@@ -1,8 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
@@ -13,10 +12,10 @@ public class AirportTest {
     public static final int DEFAULT_CAPACITY = 10;
     private Airport airport = new Airport();
 
+
     private Plane plane = mock(Plane.class);
     private Dock occupiedDock = mock(Dock.class);
     private Dock vacantDock = mock(Dock.class);
-
 
     @Before
     public void setUp() throws Exception {
@@ -71,24 +70,24 @@ public class AirportTest {
     }
 
     private void givenAirportHasMultipleDocksAndOneIsVacant() {
-        airport.docks = Arrays.asList(occupiedDock, occupiedDock, occupiedDock, vacantDock, occupiedDock);
+        airport.docks = asList(occupiedDock, occupiedDock, occupiedDock, vacantDock, occupiedDock);
     }
 
     private void givenAirportDockIsOccupied() {
-        airport.docks = Arrays.asList(occupiedDock);
+        airport.docks = asList(occupiedDock);
     }
 
     private void givenAirportDockIsVacant() {
-        airport.docks = Arrays.asList(vacantDock);
+        airport.docks = asList(vacantDock);
     }
 
     private void givenPlaneIsNotDockedAtAirport() {
         given(occupiedDock.hasPlane(plane)).willReturn(false);
-        airport.docks = Arrays.asList(occupiedDock);
+        airport.docks = asList(occupiedDock);
     }
 
     private void givenPlaneIsDockedAtAirport() {
         given(occupiedDock.hasPlane(plane)).willReturn(true);
-        airport.docks = Arrays.asList(occupiedDock);
+        airport.docks = asList(occupiedDock);
     }
 }

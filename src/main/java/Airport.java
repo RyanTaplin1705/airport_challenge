@@ -11,6 +11,6 @@ public class Airport {
     }
 
     public boolean hasSpaces() {
-        return false;
+        return true;
     }
 }

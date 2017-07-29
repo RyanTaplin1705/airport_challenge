@@ -23,6 +23,18 @@ public class AirportTest {
         assertThat(docked).isTrue();
     }
 
+    @Test
+    public void confirmAirportHasSpaces() throws Exception {
+        givenAirportHasAvailableDocks();
+        boolean hasSpaces = airport.hasSpaces();
+        assertThat(hasSpaces).isTrue();
+    }
+
+    private void givenAirportHasAvailableDocks() {
+        given(dock.hasPlane(plane)).willReturn(false);
+        airport.docks = new Dock[]{dock};
+    }
+
     private void givenPlaneIsNotDockedAtAirport() {
         given(dock.hasPlane(plane)).willReturn(false);
         airport.docks = new Dock[]{dock};

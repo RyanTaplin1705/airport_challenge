@@ -7,6 +7,7 @@ public class TrafficControllerTest {
 
     private TrafficController trafficController = new TrafficController();
     private Plane plane;
+    private Airport airport;
 
     @Before
     public void setUp() throws Exception {
@@ -39,6 +40,6 @@ public class TrafficControllerTest {
     }
 
     private void givenWeHaveAnAirport() {
-
+        airport = mock(Airport.class);
     }
 }

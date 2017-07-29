@@ -32,7 +32,7 @@ public class TrafficControllerTest {
     }
 
     private void whenTrafficControllerInstructsPlaneToLand() {
-
+        trafficController.instructLand(plane, airport);
     }
 
     private void givenWeHaveAPlane() {

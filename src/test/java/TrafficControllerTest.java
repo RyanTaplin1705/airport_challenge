@@ -2,6 +2,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class TrafficControllerTest {
 
@@ -18,17 +19,11 @@ public class TrafficControllerTest {
     @Test
     public void instructPlaneToLandAtAirport() throws Exception {
         whenTrafficControllerInstructsPlaneToLand();
-
-        thePlaneConfirmsLanding();
-        andAirportAcknowledgesArrivalOfThePlane();
+        thePlaneReceivesTheInstructionFromTrafficController();
     }
 
-    private void andAirportAcknowledgesArrivalOfThePlane() {
-
-    }
-
-    private void thePlaneConfirmsLanding() {
-
+    private void thePlaneReceivesTheInstructionFromTrafficController() {
+        verify(plane).land(airport);
     }
 
     private void whenTrafficControllerInstructsPlaneToLand() {

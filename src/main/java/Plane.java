@@ -4,4 +4,7 @@ public class Plane {
     public void land(Airport airport) {
         isFlying = false;
     }
+
+    public void depart() {
+    }
 }

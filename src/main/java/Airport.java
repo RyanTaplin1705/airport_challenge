@@ -38,4 +38,8 @@ public class Airport {
     public int maximumCapacity() {
         return docks.size();
     }
+
+    public String getWeather() {
+        return null;
+    }
 }

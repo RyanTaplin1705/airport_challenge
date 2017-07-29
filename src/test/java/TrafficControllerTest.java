@@ -1,3 +1,4 @@
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.mockito.BDDMockito.given;
@@ -22,14 +23,20 @@ public class TrafficControllerTest {
         thePlaneReceivesTheInstructionToDepart();
     }
 
+    @Ignore
     @Test
     public void cantInstructPlaneToDepartFromAirportIfWeatherIsStormy() throws Exception {
-        // TODO where to place weather? Airport? Come back to this.
+        givenAirportWeatherIsStormy();
+        whenTrafficControllerInstructsPlaneToDepart();
+        thePlaneDoesNotReceiveInstructionToDepart();
     }
 
     @Test
     public void cantInstructPlaneToLandAtAirportIfWeatherIsStormy() throws Exception {
-        // TODO where to place weather? Airport? Come back to this.
+        givenAirportIsNotFull();
+        givenAirportWeatherIsStormy();
+        whenTrafficControllerInstructsPlaneToLand();
+        thePlaneDoesNotReceiveInstructionToLand();
     }
 
     @Test
@@ -54,6 +61,10 @@ public class TrafficControllerTest {
         given(airport.hasSpaces()).willReturn(true);
     }
 
+    private void givenAirportWeatherIsStormy() {
+        given(airport.getWeather()).willReturn("Stormy");
+    }
+
     private void whenTrafficControllerInstructsPlaneToDepart() {
         trafficController.instructDepart(plane);
     }
@@ -68,6 +79,10 @@ public class TrafficControllerTest {
 
     private void thePlaneDoesNotReceiveInstructionToLand() {
         verify(plane, never()).land(airport);
+    }
+
+    private void thePlaneDoesNotReceiveInstructionToDepart() {
+        verify(plane, never()).depart();
     }
 
     private void thePlaneReceivesTheInstructionToDepart() {

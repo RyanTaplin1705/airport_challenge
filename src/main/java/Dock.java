@@ -9,4 +9,8 @@ public class Dock {
             return false;
         }
     }
+
+    public boolean isVacant() {
+        return false;
+    }
 }

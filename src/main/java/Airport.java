@@ -9,4 +9,8 @@ public class Airport {
         }
         return false;
     }
+
+    public boolean hasSpaces() {
+        return false;
+    }
 }

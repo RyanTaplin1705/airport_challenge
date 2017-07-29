@@ -6,5 +6,6 @@ public class Plane {
     }
 
     public void depart() {
+        isFlying = true;
     }
 }

@@ -1,4 +1,3 @@
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,8 +16,23 @@ public class PlaneTest {
         thenPlaneIsNoLongerFlying();
     }
 
+    @Test
+    public void whenStationaryPlaneIsDepart() throws Exception {
+        givenPlaneIsAtAirport();
+        whenPlaneIsInstructedToDepart();
+        thenPlaneIsFlying();
+    }
+
+    private void givenPlaneIsAtAirport() {
+        plane.isFlying = false;
+    }
+
     private void givenPlaneIsFlying() {
         plane.isFlying = true;
+    }
+
+    private void whenPlaneIsInstructedToDepart() {
+        plane.depart();
     }
 
     private void whenPlaneIsInstructedToLand() {
@@ -27,5 +41,9 @@ public class PlaneTest {
 
     private void thenPlaneIsNoLongerFlying() {
         assertThat(plane.isFlying).isFalse();
+    }
+
+    private void thenPlaneIsFlying() {
+        assertThat(plane.isFlying).isTrue();
     }
 }

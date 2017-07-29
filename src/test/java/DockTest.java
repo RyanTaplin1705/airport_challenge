@@ -19,6 +19,17 @@ public class DockTest {
         assertThat(dock.hasPlane(plane)).isFalse();
     }
 
+    @Test
+    public void verifyDockIsVacantWhenPlaneIsDocked() throws Exception {
+        assertThat(dock.isVacant()).isTrue();
+    }
+
+    @Test
+    public void verifyDockIsOccupiedWhenPlaneIsDocked() throws Exception {
+        givenPlaneIsDocked();
+        assertThat(dock.isVacant()).isFalse();
+    }
+
     private void givenPlaneIsDocked() {
         dock.plane = plane;
     }

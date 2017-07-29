@@ -11,6 +11,6 @@ public class Dock {
     }
 
     public boolean isVacant() {
-        return false;
+        return plane == null;
     }
 }

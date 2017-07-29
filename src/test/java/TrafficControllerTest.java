@@ -11,6 +11,7 @@ public class TrafficControllerTest {
 
     @Test
     public void instructPlaneToLandAtAirport() throws Exception {
+        givenAirportIsNotFull();
         whenTrafficControllerInstructsPlaneToLand();
         thePlaneReceivesTheInstructionToLand();
     }

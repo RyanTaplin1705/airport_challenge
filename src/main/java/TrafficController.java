@@ -1,6 +1,13 @@
 public class TrafficController {
 
-    public void instructLand(Plane plane, Airport airport) {
+
+    private Airport airport;
+
+    public TrafficController(Airport airport) {
+        this.airport = airport;
+    }
+
+    public void instructLand(Plane plane) {
         if (airport.hasSpaces() && isNotStormy(airport.getWeather())) {
             plane.land(airport);
         }
@@ -11,6 +18,8 @@ public class TrafficController {
     }
 
     public void instructDepart(Plane plane) {
-        plane.depart();
+        if (isNotStormy(airport.getWeather())) {
+            plane.depart();
+        }
     }
 }

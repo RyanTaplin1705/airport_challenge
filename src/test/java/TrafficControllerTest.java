@@ -1,4 +1,4 @@
-import org.junit.Ignore;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.mockito.BDDMockito.given;
@@ -8,9 +8,14 @@ public class TrafficControllerTest {
 
     public static final String OTHER_WEATHER = "Sunny";
     public static final String STORMY_WEATHER = "Stormy";
-    private TrafficController trafficController = new TrafficController();
+    private TrafficController trafficController;
     private Plane plane = mock(Plane.class);
     private Airport airport = mock(Airport.class);
+
+    @Before
+    public void setUp() throws Exception {
+        trafficController = new TrafficController(airport);
+    }
 
     @Test
     public void instructPlaneToLandAtAirport() throws Exception {
@@ -26,12 +31,11 @@ public class TrafficControllerTest {
 
     @Test
     public void instructPlaneToDepartFromAirport() throws Exception {
+        givenAirportWeatherIsNotStormy();
         whenTrafficControllerInstructsPlaneToDepart();
         thePlaneReceivesTheInstructionToDepart();
     }
 
-    //TODO to think about how to access airport / weather (pass it in or assign it to plane as currentLocation);
-    @Ignore
     @Test
     public void cantInstructPlaneToDepartFromAirportIfWeatherIsStormy() throws Exception {
         givenAirportWeatherIsStormy();
@@ -80,7 +84,7 @@ public class TrafficControllerTest {
     }
 
     private void whenTrafficControllerInstructsPlaneToLand() {
-        trafficController.instructLand(plane, airport);
+        trafficController.instructLand(plane);
     }
 
     private void thePlaneReceivesTheInstructionToLand() {

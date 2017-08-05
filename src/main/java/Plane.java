@@ -1,11 +1,14 @@
 public class Plane {
-    public boolean isFlying = false;
+
+    public Dock docked;
 
     public void land(Airport airport) {
-        isFlying = false;
+        docked = airport.getAvailableDock();
+        docked.plane = this;
     }
 
     public void depart() {
-        isFlying = true;
+        docked.plane = null;
+        docked = null;
     }
 }

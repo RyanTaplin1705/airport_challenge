@@ -14,7 +14,7 @@ public class TrafficController {
     }
 
     private boolean isNotStormy(String weather) {
-        return weather != null && !weather.equals("Stormy");
+        return !weather.equals("Stormy");
     }
 
     public void instructDepart(Plane plane) {

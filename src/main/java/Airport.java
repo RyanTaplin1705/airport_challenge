@@ -37,6 +37,13 @@ public class Airport {
         return false;
     }
 
+    public Dock getAvailableDock() {
+        for (Dock dock : docks) {
+            if (dock.isVacant()) return dock;
+        }
+        return null;
+    }
+
     public int maximumCapacity() {
         return docks.size();
     }

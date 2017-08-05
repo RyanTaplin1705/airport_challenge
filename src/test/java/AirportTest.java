@@ -69,6 +69,18 @@ public class AirportTest {
         assertThat(customAirport.maximumCapacity()).isEqualTo(CUSTOM_CAPACITY);
     }
 
+    @Test
+    public void airportReturnsDockWhenAvailableIsFound() {
+        givenAirportHasMultipleDocksAndOneIsVacant();
+        assertThat(airport.getAvailableDock()).isEqualTo(vacantDock);
+    }
+
+    @Test
+    public void airportReturnsInvalidValueWhenNoAvailableDockIsFound() {
+        givenAirportDockIsOccupied();
+        assertThat(airport.getAvailableDock()).isEqualTo(null);
+    }
+
     private void givenAirportHasMultipleDocksAndOneIsVacant() {
         airport.docks = asList(occupiedDock, occupiedDock, occupiedDock, vacantDock, occupiedDock);
     }

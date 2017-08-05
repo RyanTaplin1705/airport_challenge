@@ -23,7 +23,7 @@ public class PlaneTest {
     }
 
     @Test
-    public void whenStationaryPlaneIsDepart() throws Exception {
+    public void whenStationaryPlaneIsInstructedToDepart() throws Exception {
         givenPlaneIsAtAirport();
 
         whenPlaneIsInstructedToDepart();

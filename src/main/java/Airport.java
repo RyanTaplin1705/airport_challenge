@@ -1,3 +1,5 @@
+import weather.Weather;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -6,7 +8,7 @@ public class Airport {
 
     private static final int DEFAULT_CAPACITY = 10;
 
-    private Weather weather = new Weather(new Random());
+    public Weather weather;
     public List<Dock> docks;
 
     public Airport(int capacity) {
@@ -14,6 +16,7 @@ public class Airport {
         for (int i = 0; i < capacity; i++) {
             docks.add(new Dock());
         }
+       weather = new Weather(new Random());
     }
 
     public Airport() {
@@ -21,6 +24,7 @@ public class Airport {
         for (int i = 0; i < DEFAULT_CAPACITY; i++) {
             docks.add(new Dock());
         }
+        weather = new Weather(new Random());
     }
 
     public boolean isDocked(Plane plane) {
@@ -46,9 +50,5 @@ public class Airport {
 
     public int maximumCapacity() {
         return docks.size();
-    }
-
-    public String getWeather() {
-        return weather.type;
     }
 }

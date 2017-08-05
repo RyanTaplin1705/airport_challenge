@@ -1,4 +1,6 @@
 import org.junit.Test;
+import weather.Weather;
+import weather.WeatherType;
 
 import java.util.Random;
 
@@ -14,14 +16,28 @@ public class WeatherTest {
     public void weatherCanBeSunny() throws Exception {
         givenTheRandomGeneratorWillReturn(0);
         Weather weather = whenWeCreateWeather();
-        theWeatherTypeWillBe(weather, "Sunny");
+        theWeatherTypeWillBe(weather, WeatherType.SUNNY);
     }
 
     @Test
     public void weatherCanBeStormy() throws Exception {
         givenTheRandomGeneratorWillReturn(99);
         Weather weather = whenWeCreateWeather();
-        theWeatherTypeWillBe(weather, "Stormy");
+        theWeatherTypeWillBe(weather, WeatherType.STORMY);
+    }
+
+    @Test
+    public void weatherIsSafe() throws Exception {
+        givenTheRandomGeneratorWillReturn(0);
+        Weather weather = whenWeCreateWeather();
+        assertThat(weather.isSafe()).isTrue();
+    }
+
+    @Test
+    public void weatherIsNotSafe() throws Exception {
+        givenTheRandomGeneratorWillReturn(99);
+        Weather weather = whenWeCreateWeather();
+        assertThat(weather.isSafe()).isFalse();
     }
 
     //givens
@@ -35,7 +51,7 @@ public class WeatherTest {
     }
 
     //thens
-    private void theWeatherTypeWillBe(Weather weather, String sunny) {
-        assertThat(weather.type).isEqualTo(sunny);
+    private void theWeatherTypeWillBe(Weather weather, WeatherType type) {
+        assertThat(weather.type).isEqualTo(type);
     }
 }

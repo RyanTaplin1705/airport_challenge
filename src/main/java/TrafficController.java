@@ -8,17 +8,13 @@ public class TrafficController {
     }
 
     public void instructLand(Plane plane) {
-        if (airport.hasSpaces() && isNotStormy(airport.getWeather())) {
+        if (airport.hasSpaces() && airport.weather.isSafe()){
             plane.land(airport);
         }
     }
 
-    private boolean isNotStormy(String weather) {
-        return !weather.equals("Stormy");
-    }
-
     public void instructDepart(Plane plane) {
-        if (isNotStormy(airport.getWeather())) {
+        if (airport.weather.isSafe()) {
             plane.depart();
         }
     }

@@ -1,44 +1,49 @@
 import org.junit.Before;
 import org.junit.Test;
+import weather.Weather;
+import weather.WeatherType;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 public class TrafficControllerTest {
 
-    public static final String OTHER_WEATHER = "Sunny";
-    public static final String STORMY_WEATHER = "Stormy";
+    private static final WeatherType OTHER_WEATHER = WeatherType.SUNNY;
+    private static final WeatherType STORMY_WEATHER = WeatherType.STORMY;
     private TrafficController trafficController;
+
     private Plane plane = mock(Plane.class);
     private Airport airport = mock(Airport.class);
+    private Weather weather = mock(Weather.class);
 
     @Before
     public void setUp() throws Exception {
+        airport.weather = weather;
         trafficController = new TrafficController(airport);
     }
 
     @Test
     public void instructPlaneToLandAtAirport() throws Exception {
         givenAirportIsNotFull();
-        givenAirportWeatherIsNotStormy();
+        givenWeatherIsSafe();
         whenTrafficControllerInstructsPlaneToLand();
         thePlaneReceivesTheInstructionToLand();
     }
 
-    private void givenAirportWeatherIsNotStormy() {
-        given(airport.getWeather()).willReturn(OTHER_WEATHER);
+    private void givenWeatherIsSafe() {
+        given(weather.isSafe()).willReturn(true);
     }
 
     @Test
     public void instructPlaneToDepartFromAirport() throws Exception {
-        givenAirportWeatherIsNotStormy();
+        givenWeatherIsSafe();
         whenTrafficControllerInstructsPlaneToDepart();
         thePlaneReceivesTheInstructionToDepart();
     }
 
     @Test
     public void cantInstructPlaneToDepartFromAirportIfWeatherIsStormy() throws Exception {
-        givenAirportWeatherIsStormy();
+        givenWeatherIsNotSafe();
         whenTrafficControllerInstructsPlaneToDepart();
         thePlaneDoesNotReceiveInstructionToDepart();
     }
@@ -46,7 +51,7 @@ public class TrafficControllerTest {
     @Test
     public void cantInstructPlaneToLandAtAirportIfWeatherIsStormy() throws Exception {
         givenAirportIsNotFull();
-        givenAirportWeatherIsStormy();
+        givenWeatherIsNotSafe();
         whenTrafficControllerInstructsPlaneToLand();
         thePlaneDoesNotReceiveInstructionToLand();
     }
@@ -54,7 +59,7 @@ public class TrafficControllerTest {
     @Test
     public void cantInstructPlaneToLandAtAirportThatIsFull() throws Exception {
         givenAirportIsFull();
-        givenAirportWeatherIsNotStormy();
+        givenWeatherIsSafe();
         whenTrafficControllerInstructsPlaneToLand();
         thePlaneDoesNotReceiveInstructionToLand();
     }
@@ -62,7 +67,7 @@ public class TrafficControllerTest {
     @Test
     public void canInstructPlaneToLandWhenAirportIsNotFull() throws Exception {
         givenAirportIsNotFull();
-        givenAirportWeatherIsNotStormy();
+        givenWeatherIsSafe();
         whenTrafficControllerInstructsPlaneToLand();
         thePlaneReceivesTheInstructionToLand();
     }
@@ -75,8 +80,8 @@ public class TrafficControllerTest {
         given(airport.hasSpaces()).willReturn(true);
     }
 
-    private void givenAirportWeatherIsStormy() {
-        given(airport.getWeather()).willReturn(STORMY_WEATHER);
+    private void givenWeatherIsNotSafe() {
+        given(weather.isSafe()).willReturn(false);
     }
 
     private void whenTrafficControllerInstructsPlaneToDepart() {

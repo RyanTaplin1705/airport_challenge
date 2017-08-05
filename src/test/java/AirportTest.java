@@ -2,14 +2,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 public class AirportTest {
 
-    public static final int CUSTOM_CAPACITY = 999;
-    public static final int DEFAULT_CAPACITY = 10;
+    private static final int CUSTOM_CAPACITY = 999;
+    private static final int DEFAULT_CAPACITY = 10;
     private Airport airport = new Airport();
 
 
@@ -86,20 +87,20 @@ public class AirportTest {
     }
 
     private void givenAirportDockIsOccupied() {
-        airport.docks = asList(occupiedDock);
+        airport.docks = singletonList(occupiedDock);
     }
 
     private void givenAirportDockIsVacant() {
-        airport.docks = asList(vacantDock);
+        airport.docks = singletonList(vacantDock);
     }
 
     private void givenPlaneIsNotDockedAtAirport() {
         given(occupiedDock.hasPlane(plane)).willReturn(false);
-        airport.docks = asList(occupiedDock);
+        airport.docks = singletonList(occupiedDock);
     }
 
     private void givenPlaneIsDockedAtAirport() {
         given(occupiedDock.hasPlane(plane)).willReturn(true);
-        airport.docks = asList(occupiedDock);
+        airport.docks = singletonList(occupiedDock);
     }
 }
